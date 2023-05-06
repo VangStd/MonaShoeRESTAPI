@@ -28,8 +28,4 @@ public class HomeAPI {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
 
-
-
-
-
 }

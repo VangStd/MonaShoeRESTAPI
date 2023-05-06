@@ -55,9 +55,6 @@ public class Orders implements Serializable {
     @JoinColumn(name = "CustomerID", referencedColumnName = "AccountID")
     @ManyToOne(optional = false)
     private Accounts customerID;
-    @JoinColumn(name = "EmployeeID", referencedColumnName = "AccountID")
-    @ManyToOne(optional = false)
-    private Accounts employeeID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orders")
     private List<OrderDetails> orderDetailsList;
 
@@ -141,13 +138,6 @@ public class Orders implements Serializable {
         this.customerID = customerID;
     }
 
-    public Accounts getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(Accounts employeeID) {
-        this.employeeID = employeeID;
-    }
 
     public List<OrderDetails> getOrderDetailsList() {
         return orderDetailsList;

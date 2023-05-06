@@ -4,6 +4,7 @@
  */
 package com.vang.monashoeapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,7 +17,6 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-
 
 @Entity
 @Table(name = "Accounts")
@@ -46,10 +46,15 @@ public class Accounts implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, mappedBy = "customerID")
+    @JsonIgnore
     private List<Orders> ordersList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID")
-    private List<Orders> ordersList1;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID")
+//    @JsonIgnore
+//    private List<Orders> ordersList1;
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, mappedBy = "accountID")
+    @JsonIgnore
+    private List<AccountConfig> accountConfigList;
 
     public Accounts() {
     }
@@ -132,14 +137,13 @@ public class Accounts implements Serializable {
         this.ordersList = ordersList;
     }
 
-    public List<Orders> getOrdersList1() {
-        return ordersList1;
-    }
-
-    public void setOrdersList1(List<Orders> ordersList1) {
-        this.ordersList1 = ordersList1;
-    }
-
+//    public List<Orders> getOrdersList1() {
+//        return ordersList1;
+//    }
+//
+//    public void setOrdersList1(List<Orders> ordersList1) {
+//        this.ordersList1 = ordersList1;
+//    }
     @Override
     public int hashCode() {
         int hash = 0;
@@ -164,5 +168,13 @@ public class Accounts implements Serializable {
     public String toString() {
         return "com.vang.monashoeapi.entities.Accounts[ accountID=" + accountID + " ]";
     }
-    
+
+    public List<AccountConfig> getAccountConfigList() {
+        return accountConfigList;
+    }
+
+    public void setAccountConfigList(List<AccountConfig> accountConfigList) {
+        this.accountConfigList = accountConfigList;
+    }
+
 }

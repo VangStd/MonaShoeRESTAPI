@@ -16,4 +16,10 @@ public interface AccountRespository extends JpaRepository<Accounts, Integer> {
 
     @Query(value = "select * from Accounts where Username = ?1", nativeQuery = true)
     Accounts loadByUsername(String username);
+
+    @Query(value = "select count(username) from Accounts where Username = ?1", nativeQuery = true)
+    long getCountByUsername(String username);
+
+    @Query(value = "select count(email) from Accounts where Email = ?1", nativeQuery = true)
+    long getCountByEmail(String email);
 }
